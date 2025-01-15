@@ -30,15 +30,26 @@ volumeUp.addEventListener('click', () => {
   if (currentValue === 1) {
     rectArray.find(rect => rect.index === 0).rect.classList.add('volume-rect__active');
   }
-  else if (currentValue > 1 && currentValue <= rectArray.length - 1) {
+  // else if (currentValue > 1 && currentValue <= rectArray.length - 1) {
+  //   let activeIndex = currentValue - 1;
+  //   rectArray.find(rect => rect.index === activeIndex).rect.classList.add('volume-rect__active');
+  // }
+  else if (currentValue > 1 && currentValue <= rectArray.length) {
     let activeIndex = currentValue - 1;
-    rectArray.find(rect => rect.index === activeIndex).rect.classList.add('volume-rect__active');
+    // Подсвечиваем все элементы до и включая активный индекс
+    rectArray.forEach(rect => {
+      if (rect.index <= activeIndex) {
+        rect.rect.classList.add('volume-rect__active');
+      }
+    })
   }
   else if (currentValue === rectArray.length) {
     rectArray.find(rect => rect.index === rectArray.length - 1).rect.classList.add('volume-rect__active');
   }
 }
 );
+
+
 
 // Обработчик события уменьшения громкости
 volumeDown.addEventListener('click', () => {
@@ -56,8 +67,16 @@ volumeDown.addEventListener('click', () => {
 
   }
   else if (currentValue > 0) {
-    const activeIndex = currentValue - 1
-    rectArray.find(rect => rect.index === activeIndex).rect.classList.add('volume-rect__active');
+
+    let activeIndex = currentValue - 1;
+    // Подсвечиваем все элементы до и включая активный индекс
+    rectArray.forEach(rect => {
+      if (rect.index <= activeIndex) {
+        rect.rect.classList.add('volume-rect__active');
+      }
+    })
+  
+  
   }
 });
 
